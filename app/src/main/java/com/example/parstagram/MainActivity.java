@@ -1,9 +1,12 @@
 package com.example.parstagram;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,6 +22,7 @@ import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseEncoder;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -67,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 if (description.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Description is Empty", Toast.LENGTH_SHORT).show();
                 }
+                if (photoFile==null ||ivImage.getDrawable()==null) {
+                    Toast.makeText(MainActivity.this, "There is no image data!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser);
+                savePost(description, currentUser, photoFile);
             }
         });
 
@@ -90,18 +98,32 @@ public class MainActivity extends AppCompatActivity {
                
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFileUri(photoFileName);
-        Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.example.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+//        Log.i(TAG, intent.resolveActivity(getPackageManager()).toString());
         if (intent.resolveActivity(getPackageManager())!=null) {
-            Log.i(TAG, "clicked4");
+//            Log.i(TAG, "clicked4");
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-            Log.i(TAG, "clicked1");
+//            Log.i(TAG, "clicked1");
         }
-        Log.i(TAG, "clicked2");
+//        Log.i(TAG, "clicked2");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                ivImage.setImageBitmap(takenImage);
+            } else {
+                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public File getPhotoFileUri(String fileName) {
-        Log.i(TAG, "clicked3");
+//        Log.i(TAG, "clicked3");
         File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)       ;
         if(!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "Failed to create directory");
@@ -110,10 +132,10 @@ public class MainActivity extends AppCompatActivity {
         return file;
     }
 
-    private void savePost(String description, ParseUser currentUser) {
+    private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setDescription(description);
-//        post.setImage();
+        post.setImage(new ParseFile(photoFile));
         post.put("username", currentUser.getUsername());
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
@@ -125,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
+                ivImage.setImageResource(0);
             }
         });
     }
