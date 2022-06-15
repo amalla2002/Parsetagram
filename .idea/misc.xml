@@ -5,11 +5,14 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ufi_save_icon.xml" value="0.159" />
+        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.159375" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23007246376811594" />
+        <entry key="app/src/main/res/layout/activity_post_details.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.16530797101449277" />
         <entry key="app/src/main/res/layout/home_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.25" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />
       </map>
     </option>

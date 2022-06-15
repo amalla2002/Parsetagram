@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogout;
     public String photoFileName = "photo.jpg";
     private File photoFile;
+    private Button btnFeed;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         ivImage = findViewById(R.id.ivImage);
         etDescription = findViewById(R.id.etDescription);
+        btnFeed = findViewById(R.id.btnFeed);
 
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 launchCamera();
+            }
+        });
+
+        btnFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
             }
         });
 
