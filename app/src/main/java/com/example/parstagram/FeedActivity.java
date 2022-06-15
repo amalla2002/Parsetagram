@@ -25,12 +25,15 @@ public class FeedActivity extends AppCompatActivity {
     protected PostsAdapter adapter;
     protected List<Post> allPost;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         rvPosts = findViewById(R.id.rvPosts);
         swipeContainer = findViewById(R.id.swipeContainer);
@@ -39,25 +42,34 @@ public class FeedActivity extends AppCompatActivity {
         adapter = new PostsAdapter(this, allPost);
 
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        rvPosts.setLayoutManager(linearLayoutManager);
 
-        queryPost();
+        queryPost(0);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 allPost.clear(); // new
                 adapter.notifyDataSetChanged(); //new
-                queryPost();
+                queryPost(0);
                 swipeContainer.setRefreshing(false); //new
             }
         });
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                queryPost(allPost.size());
+            }
+        };
+
+        rvPosts.addOnScrollListener(scrollListener);
     }
 
-    private void queryPost() {
+    private void queryPost(int fromItem) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(1);
+        query.setSkip(fromItem);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -69,10 +81,11 @@ public class FeedActivity extends AppCompatActivity {
                 for (Post post : posts) {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
-
                 allPost.addAll(posts);
                 adapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false); //new
             }
         });
+
     }
 }
