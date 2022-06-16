@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.parstagram.fragments.ComposeFragment;
+import com.example.parstagram.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -46,15 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private BottomNavigationView bottomNavigationView;
-    private Button btnFeed;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btnLogout = findViewById(R.id.btnLogout);
-        btnFeed = findViewById(R.id.btnFeed);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
 
@@ -69,13 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        btnFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, FeedActivity.class);
-                startActivity(i);
-            }
-        });
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -86,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     case R.id.action_home:
-                        fragment = new ComposeFragment();
+                        fragment = new HomeFragment();
                         break;
                     case R.id.action_profile:
                     default:
