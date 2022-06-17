@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.parstagram.EndlessRecyclerViewScrollListener;
 import com.example.parstagram.Post;
-import com.example.parstagram.PostsAdapter;
+import com.example.parstagram.adapters.PostsAdapter;
 import com.example.parstagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
     private void queryPost(int fromItem) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(1);
+        query.setLimit(20);
         query.setSkip(fromItem);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
@@ -142,6 +142,5 @@ public class HomeFragment extends Fragment {
                 swipeContainer.setRefreshing(false); //new
             }
         });
-
     }
 }
