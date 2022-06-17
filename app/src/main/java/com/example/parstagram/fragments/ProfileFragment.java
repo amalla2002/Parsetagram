@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    public ProfileFragment() {} //TODO: pass in current user
+    public ProfileFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +45,9 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.tvUsernameProfile);
         rvSelfPost = view.findViewById(R.id.rvSelfPost);
         swipeContainer = view.findViewById(R.id.swipeContainer);
+
+        tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+
         allPost = new ArrayList<>();
         adapter = new ProfilePostAdapter(getContext(), allPost);
         rvSelfPost.setAdapter(adapter);

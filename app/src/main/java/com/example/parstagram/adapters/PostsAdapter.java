@@ -67,6 +67,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvLikes.setText(String.valueOf(post.getLikedBy().size()));
+            // set like button color
+            if (post.getLikedBy().contains(ParseUser.getCurrentUser().getObjectId())) { ibLikeSetOC.setColorFilter(Color.RED); ibLikeSetOC.setImageDrawable(context.getDrawable(R.drawable.ufi_heart_active));}
+            else { ibLikeSetOC.setColorFilter(Color.BLACK); ibLikeSetOC.setImageDrawable(context.getDrawable(R.drawable.ufi_heart));};
+            //
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);

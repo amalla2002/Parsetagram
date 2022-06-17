@@ -27,24 +27,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toBottomOf="@+id/tvLikeCount"
         tools:text="trying to look hipster" />
 
     <ImageButton
         android:id="@+id/ibLike"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ufi_heart"
+        android:src="@drawable/ufi_heart_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivImage" />
 
     <ImageButton
         android:id="@+id/ibComment"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
@@ -54,8 +55,8 @@
 
     <ImageButton
         android:id="@+id/ibShare"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
@@ -65,8 +66,8 @@
 
     <ImageButton
         android:id="@+id/ibSave"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
@@ -81,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibLike"
         tools:text="65" />
@@ -91,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="likes"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toEndOf="@+id/tvLikeCount"
         app:layout_constraintTop_toBottomOf="@+id/ibLike" />
 </androidx.constraintlayout.widget.ConstraintLayout>
