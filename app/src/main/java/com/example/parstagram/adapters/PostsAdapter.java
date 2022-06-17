@@ -89,17 +89,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 public void onClick(View v) {
                     likedBy = post.getLikedBy();
                     String user = ParseUser.getCurrentUser().getObjectId();
-                    Boolean flag = likedBy.contains(user);
-                    Log.i(TAG, String.valueOf(flag));
-                    if (flag) {
+                    if (likedBy.contains(user)) {
                         likedBy.remove(user);
-                        ibLikeSetOC.setColorFilter(Color.GRAY);
+                        ibLikeSetOC.setColorFilter(Color.BLACK);
+                        Drawable newImage = context.getDrawable(R.drawable.ufi_heart);
+                        ibLikeSetOC.setImageDrawable(newImage);
                     }
                     else {
                         likedBy.add(user);
                         ibLikeSetOC.setColorFilter(Color.RED);
-//                        Drawable icon = R.drawable.ufi_heart_active;
-//                        ibLikeSetOC.setImageDrawable(icon);
+//                        ibLikeSetOC.setImageDrawable(@);
+                        Drawable newImage = context.getDrawable(R.drawable.ufi_heart_active);
+                        ibLikeSetOC.setImageDrawable(newImage);
                     }
                     post.setLikedBy(likedBy);
                     tvLikes.setText(String.valueOf(post.getLikedBy().size()));
