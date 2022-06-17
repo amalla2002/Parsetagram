@@ -31,13 +31,9 @@ public class ProfileFragment extends Fragment {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
-
-    public ProfileFragment() {}
-
+    public ProfileFragment() {} // needs an empty constructor
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
     @Override
@@ -45,9 +41,7 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.tvUsernameProfile);
         rvSelfPost = view.findViewById(R.id.rvSelfPost);
         swipeContainer = view.findViewById(R.id.swipeContainer);
-
         tvUsername.setText(ParseUser.getCurrentUser().getUsername());
-
         allPost = new ArrayList<>();
         adapter = new ProfilePostAdapter(getContext(), allPost);
         rvSelfPost.setAdapter(adapter);

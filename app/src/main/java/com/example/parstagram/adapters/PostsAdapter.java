@@ -20,7 +20,6 @@ import com.example.parstagram.R;
 import com.parse.Parse;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-
 import org.parceler.Parcels;
 import java.util.List;
 
@@ -54,7 +53,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageButton ibLikeSetOC;
         private List<String> likedBy;
         private TextView tvLikes;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
@@ -102,7 +100,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     else {
                         likedBy.add(user);
                         ibLikeSetOC.setColorFilter(Color.RED);
-//                        ibLikeSetOC.setImageDrawable(@);
                         Drawable newImage = context.getDrawable(R.drawable.ufi_heart_active);
                         ibLikeSetOC.setImageDrawable(newImage);
                     }

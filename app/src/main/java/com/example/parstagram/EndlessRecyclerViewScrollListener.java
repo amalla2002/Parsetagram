@@ -1,3 +1,5 @@
+// IGNORE THIS FILE
+
 package com.example.parstagram;
 
 import androidx.recyclerview.widget.GridLayoutManager;

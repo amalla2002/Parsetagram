@@ -51,61 +51,17 @@ public class ComposeFragment extends Fragment {
     private Button btnSubmit;
     private File photoFile;
     public String photoFileName = "photo.jpg";
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ComposeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComposeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComposeFragment newInstance(String param1, String param2) {
-        ComposeFragment fragment = new ComposeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    public ComposeFragment() {} // needs empty constructor
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_compose, container, false);
     }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         btnTakePicture = view.findViewById(R.id.btnTakePicture);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivImage = view.findViewById(R.id.ivImage);
         etDescription = view.findViewById(R.id.etDescription);
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,31 +77,22 @@ public class ComposeFragment extends Fragment {
                 savePost(description, currentUser, photoFile);
             }
         });
-
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 launchCamera();
             }
         });
-
     }
     private void launchCamera() {
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFileUri(photoFileName);
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.example.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-//        Log.i(TAG, intent.resolveActivity(getPackageManager()).toString());
         if (intent.resolveActivity(getContext().getPackageManager())!=null) {
-//            Log.i(TAG, "clicked4");
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-//            Log.i(TAG, "clicked1");
         }
-//        Log.i(TAG, "clicked2");
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,9 +105,7 @@ public class ComposeFragment extends Fragment {
             }
         }
     }
-
     public File getPhotoFileUri(String fileName) {
-//        Log.i(TAG, "clicked3");
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG)       ;
         if(!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "Failed to create directory");
@@ -168,7 +113,6 @@ public class ComposeFragment extends Fragment {
         File file = new File( mediaStorageDir.getPath()+File.separator+fileName);
         return file;
     }
-
     private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setDescription(description);
@@ -188,7 +132,6 @@ public class ComposeFragment extends Fragment {
             }
         });
     }
-
     private void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
@@ -199,11 +142,7 @@ public class ComposeFragment extends Fragment {
                     Log.e(TAG, "Issue with getting post", e);
                     return;
                 }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: "+ post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
             }
         });
     }
-
 }

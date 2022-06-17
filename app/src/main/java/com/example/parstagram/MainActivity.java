@@ -32,30 +32,21 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
 import java.io.File;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     public static final String TAG = "MainActivity";
     private Button btnLogout;
-
     final FragmentManager fragmentManager = getSupportFragmentManager();
-
-
     private BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         btnLogout = findViewById(R.id.btnLogout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -87,12 +77,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
     }
-
-
-
-    
-
-
 }
