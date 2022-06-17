@@ -55,10 +55,6 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 - [Android Async Http Client](http://loopj.com/android-async-http/) - networking library
 
 
-## Notes
-
-Describe any challenges encountered while building the app.
-
 ## License
 
     Copyright [2022] [Alejandro Malla]
