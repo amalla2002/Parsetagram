@@ -29,8 +29,8 @@ public class ProfileFragment extends Fragment {
     protected ProfilePostAdapter adapter;
     protected List<Post> allPost;
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
-//    private SwipeRefreshLayout swipeContainer;
-//    private EndlessRecyclerViewScrollListener scrollListener;
+    private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public ProfileFragment() {} //TODO: pass in current user
 
@@ -44,12 +44,13 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         tvUsername = view.findViewById(R.id.tvUsernameProfile);
         rvSelfPost = view.findViewById(R.id.rvSelfPost);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
         allPost = new ArrayList<>();
         adapter = new ProfilePostAdapter(getContext(), allPost);
         rvSelfPost.setAdapter(adapter);
         rvSelfPost.setLayoutManager(gridLayoutManager);
         queryPost(0);
-        /*swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 allPost.clear(); // new
@@ -57,14 +58,14 @@ public class ProfileFragment extends Fragment {
                 queryPost(0);
                 swipeContainer.setRefreshing(false); //new
             }
-        });*/
-//        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                queryPost(allPost.size());
-//            }
-//        };
-//        rvSelfPost.addOnScrollListener(scrollListener);
+        });
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                queryPost(allPost.size());
+            }
+        };
+        rvSelfPost.addOnScrollListener(scrollListener);
     }
     private void queryPost(int fromItem) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -85,7 +86,7 @@ public class ProfileFragment extends Fragment {
                 }
                 allPost.addAll(posts);
                 adapter.notifyDataSetChanged();
-//                swipeContainer.setRefreshing(false); //new
+                swipeContainer.setRefreshing(false); //new
             }
         });
     }
